@@ -60,7 +60,7 @@ npm run dev
 2. 배포한 서비스의 공인 IP(혹은 URL)를 알려주세요
 
 - URL :  http://15.165.69.249:8080/
-- 도메인 : https://sss-next-step.kro.kr/
+- 도메인 : https://sss-next-step.o-r.kr/
 
 
 
@@ -69,7 +69,7 @@ npm run dev
 ### 2단계 - 배포하기
 1. TLS가 적용된 URL을 알려주세요
 
-- URL : https://sss-next-step.kro.kr/
+- URL : https://sss-next-step.o-r.kr/
 
 ---
 
