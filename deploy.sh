@@ -54,7 +54,7 @@ function deploy() {
   echo -e ""
   echo -e "${txtpur}>> deploy ${txtrst}"
   echo -e "$(JAR)"
-  nohup java -jar -Dspring.profiles.active=${PROFILE} $(JAR) >1 nextstep.log 2>&1  &
+  nohup java -jar -Dspring.profiles.active=${PROFILE} $(JAR) 1> nextstep.log 2>&1  &
 }
 
 # 변경이 있을 경우 pull
