@@ -51,7 +51,7 @@ function kill_pid() {
 
 # jar 실행
 function deploy() {
-  JAR =$(find ./* -name ${BUILD_FILE})
+  JAR=$(find ./* -name ${BUILD_FILE})
   echo -e ""
   echo -e "${txtpur}>> deploy ${txtrst}"
   echo -e "$(JAR)"
