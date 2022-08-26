@@ -48,6 +48,7 @@ function kill_pid() {
   fi
 }
 
+
 # jar 실행
 function deploy() {
   JAR =$(find ./* -name ${BUILD_FILE})
