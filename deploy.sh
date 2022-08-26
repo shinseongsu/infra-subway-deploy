@@ -57,7 +57,6 @@ function deploy() {
   nohup java -jar -Dspring.profiles.active=${PROFILE} $( find ./* -name ${BUILD_FILE}) 1> nextstep.log 2>&1  &
 }
 
-
 # 변경이 있을 경우 pull
 function check_df() {
   git fetch
