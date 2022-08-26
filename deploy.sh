@@ -13,6 +13,7 @@ PID=0
 BRANCH=$1
 PROFILE=$2
 BUILD_FILE=subway-0.0.1-SNAPSHOT.jar
+JAR=subway-0.0.1-SNAPSHOT.jar
 
 ## 저장소 pull
 function pull() {
