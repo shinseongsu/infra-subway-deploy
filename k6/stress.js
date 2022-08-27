@@ -1,19 +1,18 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
+// 평균 rps - 30 , 최대 rps - 75
 export let options = {
   stages: [
-    { duration: '1m', target: 70 },
-    { duration: '1m', target: 100 },
-    { duration: '1m', target: 200 },
-    { duration: '1m', target: 260 },
-    { duration: '1m', target: 150 },
-    { duration: '1m', target: 100 },
-    { duration: '1m', target: 50 },
+    { duration: '1m', target: 10 },
+    { duration: '1m', target: 30 },
+    { duration: '1m', target: 75 },
+    { duration: '1m', target: 30 },
+    { duration: '1m', target: 10 },
   ],
 
   thresholds: {
-    http_req_duration: ['p(99)<500'], // 99% of requests must complete below 0.5s
+    http_req_duration: ['p(99)<1500'], // 99% of requests must complete below 1.5s
   },
 };
 
@@ -22,30 +21,37 @@ const USERNAME = 'tlstjdtn321@naver.com';
 const PASSWORD = '1234';
 
 export default function ()  {
+  //메인 페이지
+  mainPage()
+
+  //로그인
   let token = login();
 
-  let authHeaders = {
-    headers: {
-      Authorization: `Bearer ` + token,
-      'Content-Type': 'application/json'
-    },
-  };
+  //정보수정
+  changeMyInfo(token);
 
-  updateMyInfo(authHeaders);
-  findPath(1, 4);
+  //경로탐색
+  searchPath(10, 100)
 
   sleep(1);
 };
 
-function login() {
+function mainPage(){
+  let mainRes = http.get(`${BASE_URL}`);
+  check(mainRes, {
+    'go mainPage successfully': (resp) => resp.status == 200
+  });
+}
+
+function login(){
   var payload = JSON.stringify({
-    email: USERNAME,
-    password: PASSWORD,
+    email: `${USERNAME}`,
+    password: `${PASSWORD}`
   });
 
   var params = {
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
   };
 
@@ -54,21 +60,33 @@ function login() {
   check(loginRes, {
     'logged in successfully': (resp) => resp.json('accessToken') !== '',
   });
+
   return loginRes.json('accessToken');
 }
 
-function updateMyInfo(authHeaders) {
-  let updateRequest = JSON.stringify({
-    email: USERNAME,
-    password: PASSWORD,
-    age: 30,
+function changeMyInfo(accessToken) {
+  var payload = JSON.stringify({
+    email: `${USERNAME}`,
+    password: `${PASSWORD}`,
+    age: 50
   });
 
-  let response = http.put(`${BASE_URL}/members/me`, updateRequest, authHeaders);
-  check(response, { 'update my info': (resp) => resp.status === 200});
+  let params = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  let changeInfoRes = http.put(`${BASE_URL}/members/me`, payload, params);
+  check(changeInfoRes , {
+    'changeInfo successfully': (response) => response.status === 200
+  });
 }
 
-function findPath(source, target) {
-  let response = http.get(`${BASE_URL}/paths?source=${source}&target=${target}`);
-  check(response, { 'findPath success': (resp) => resp.status === 200});
+function searchPath(source, target){
+  let pathRes = http.get(BASE_URL+'/path?source=' + source + '&target=' + target);
+  check(pathRes, {
+    'getPath successfully': (resp) => resp.status == 200
+  } );
 }
