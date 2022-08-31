@@ -4,15 +4,19 @@ import { check, sleep } from 'k6';
 // 평균 rps - 30 , 최대 rps - 75
 export let options = {
   stages: [
-    { duration: '1m', target: 10 },
-    { duration: '1m', target: 30 },
-    { duration: '1m', target: 75 },
-    { duration: '1m', target: 30 },
-    { duration: '1m', target: 10 },
+    { duration: '2m', target: 10 },
+    { duration: '4m', target: 30 },
+    { duration: '2m', target: 75 },
+    { duration: '4m', target: 100 },
+    { duration: '2m', target: 150 },
+    { duration: '4m', target: 250 },
+    { duration: '2m', target: 350 },
+    { duration: '4m', target: 450 },
+    { duration: '2m', target: 0 },
   ],
 
   thresholds: {
-    http_req_duration: ['p(99)<1500'], // 99% of requests must complete below 1.5s
+    http_req_duration: ['p(99)<100'], // 99% of requests must complete below 1.5s
   },
 };
 
