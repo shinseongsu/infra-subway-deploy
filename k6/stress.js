@@ -4,15 +4,15 @@ import { check, sleep } from 'k6';
 // 평균 rps - 30 , 최대 rps - 75
 export let options = {
   stages: [
-    { duration: '2m', target: 10 },
-    { duration: '4m', target: 30 },
-    { duration: '2m', target: 75 },
-    { duration: '4m', target: 100 },
-    { duration: '2m', target: 150 },
-    { duration: '4m', target: 250 },
-    { duration: '2m', target: 350 },
-    { duration: '4m', target: 450 },
-    { duration: '2m', target: 0 },
+    { duration: '1m', target: 10 },
+    { duration: '1m', target: 30 },
+    { duration: '1m', target: 75 },
+    { duration: '1m', target: 100 },
+    { duration: '1m', target: 150 },
+    { duration: '1m', target: 250 },
+    { duration: '1m', target: 350 },
+    { duration: '1m', target: 450 },
+    { duration: '1m', target: 0 },
   ],
 
   thresholds: {
