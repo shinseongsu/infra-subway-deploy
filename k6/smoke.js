@@ -25,7 +25,7 @@ export default function() {
   changeMyInfo(token);
 
   //경로탐색
-  searchPath(10, 100)
+  searchPath();
 
   sleep(1);
 }
@@ -78,8 +78,8 @@ function changeMyInfo(accessToken) {
   });
 }
 
-function searchPath(source, target){
-  let pathRes = http.get(BASE_URL+'/paths?source=' + source + '&target=' + target);
+function searchPath(){
+  let pathRes = http.get(BASE_URL+'/path');
   check(pathRes, {
     'getPath successfully': (resp) => resp.status == 200
   } );

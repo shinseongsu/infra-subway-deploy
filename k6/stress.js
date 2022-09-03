@@ -26,7 +26,7 @@ const PASSWORD = '1234';
 
 export default function ()  {
   //메인 페이지
-  mainPage()
+  mainPage();
 
   //로그인
   let token = login();
@@ -34,13 +34,13 @@ export default function ()  {
   //정보수정
   changeMyInfo(token);
 
-  //경로탐색
-  searchPath(10, 100)
+  //경로탐색 페이지
+  searchPath();
 
   sleep(1);
 };
 
-function mainPage(){
+function mainPage() {
   let mainRes = http.get(`${BASE_URL}`);
   check(mainRes, {
     'go mainPage successfully': (resp) => resp.status == 200
@@ -88,8 +88,8 @@ function changeMyInfo(accessToken) {
   });
 }
 
-function searchPath(source, target){
-  let pathRes = http.get(BASE_URL+'/paths?source=' + source + '&target=' + target);
+function searchPath(){
+  let pathRes = http.get(BASE_URL+'/path');
   check(pathRes, {
     'getPath successfully': (resp) => resp.status == 200
   } );
