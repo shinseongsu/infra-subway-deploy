@@ -26,7 +26,6 @@ public class LineService {
         this.stationService = stationService;
     }
 
-    @CacheEvict(value = "lines", allEntries = true)
     public LineResponse saveLine(LineRequest request) {
         Station upStation = stationService.findById(request.getUpStationId());
         Station downStation = stationService.findById(request.getDownStationId());
@@ -41,7 +40,6 @@ public class LineService {
                 .collect(Collectors.toList());
     }
 
-    @Cacheable(value = "lines")
     public List<Line> findLines() {
         return lineRepository.findAll();
     }
