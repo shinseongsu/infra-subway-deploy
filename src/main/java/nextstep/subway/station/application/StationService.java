@@ -22,6 +22,7 @@ public class StationService {
         this.stationRepository = stationRepository;
     }
 
+    @CacheEvict(value="stations", allEntries = true)
     public StationResponse saveStation(StationRequest stationRequest) {
         Station persistStation = stationRepository.save(stationRequest.toStation());
         return StationResponse.of(persistStation);
@@ -44,7 +45,7 @@ public class StationService {
         stationRepository.deleteById(id);
     }
 
-    @Cacheable(value = "stations")
+    @Cacheable(value = "stations", unless = "#result.empty")
     @Transactional(readOnly = true)
     public Station findStationById(Long id) {
         return stationRepository.findById(id).orElseThrow(RuntimeException::new);
