@@ -87,7 +87,7 @@ function changeMyInfo(accessToken) {
 }
 
 function searchPath(source, target){
-  let pathRes = http.get(BASE_URL+'/path?source=' + source + '&target=' + target);
+  let pathRes = http.get(BASE_URL+'/paths?source=' + source + '&target=' + target);
   check(pathRes, {
     'getPath successfully': (resp) => resp.status == 200
   } );
