@@ -1,7 +1,9 @@
 package nextstep.subway;
 
 import io.restassured.RestAssured;
+import java.util.Iterator;
 import nextstep.subway.utils.DatabaseCleanup;
+import nextstep.subway.utils.RedisCleanup;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +18,9 @@ public class AcceptanceTest {
     @Autowired
     private DatabaseCleanup databaseCleanup;
 
+    @Autowired
+    private RedisCleanup redisCleanup;
+
     @BeforeEach
     public void setUp() {
         if (RestAssured.port == RestAssured.UNDEFINED_PORT) {
@@ -24,5 +29,6 @@ public class AcceptanceTest {
         }
 
         databaseCleanup.execute();
+        redisCleanup.execute();
     }
 }

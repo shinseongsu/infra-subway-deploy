@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.cache.annotation.CacheEvict;
 
 @Entity
 public class Line extends BaseEntity implements Serializable {

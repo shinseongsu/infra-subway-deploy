@@ -1,5 +1,8 @@
 package nextstep.subway.cache;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -24,7 +27,9 @@ public class CacheConfig extends CachingConfigurerSupport {
     public CacheManager redisCacheManager() {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
             .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-            .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+            .serializeValuesWith(RedisSerializationContext
+                .SerializationPair
+                .fromSerializer(new GenericJackson2JsonRedisSerializer()));
 
         RedisCacheManager redisCacheManager = RedisCacheManager.RedisCacheManagerBuilder.
             fromConnectionFactory(connectionFactory).cacheDefaults(redisCacheConfiguration).build();
